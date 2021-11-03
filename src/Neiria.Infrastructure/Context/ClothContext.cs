@@ -14,7 +14,7 @@ namespace Neiria.Infrastructure.Context
       this.Database.EnsureCreated();
     }
 
-    public DbSet<Cloth> Cloths { get; set; }
+    public DbSet<Cloth> Clothes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

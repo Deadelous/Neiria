@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Neiria.Application.Configuration;
+using Neiria.Infrastructure.Context;
 
 namespace Neiria.Api
 {
@@ -27,14 +29,30 @@ namespace Neiria.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var connectionString = Configuration.GetConnectionString("connectionsqlite");
+
+           services.AddDbContext<ClothContext>(options => options.UseSqlite(connectionString));
+
+           services
+              .AddDatabase()
+              .AddRepositories();
         
             services.AddSwaggerGen();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+           app.UseCors(o => {
+               o.AllowAnyOrigin();
+               o.AllowAnyHeader();
+               o.AllowAnyMethod();
+           });
+      
+           if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

@@ -25,6 +25,8 @@ namespace Neiria.Infrastructure.Repositories
       T ent = await entities.SingleAsync(e => e.Guid == id);
 
       _context.Remove(ent);
+
+      _context.SaveChanges();
     }
 
     public async Task<IEnumerable<T>> GetAll()
@@ -39,8 +41,8 @@ namespace Neiria.Infrastructure.Repositories
 
     public async Task<T> Insert(T ent)
     {
-    
       await entities.AddAsync(ent);
+      _context.SaveChanges();
       _context.Entry(ent).State = EntityState.Added;
 
       return ent;
@@ -53,9 +55,9 @@ namespace Neiria.Infrastructure.Repositories
         throw new ArgumentNullException("entity is null");
       }
 
-      var result = _context.Set<T>().FirstOrDefaultAsync(ent => ent.Guid == id);
+      _context.Set<T>().Update(ent);
 
-      _context.Entry(ent).State = EntityState.Modified;
+      _context.SaveChanges();
 
       return Task.FromResult(ent);
       

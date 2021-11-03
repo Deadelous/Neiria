@@ -13,11 +13,11 @@ namespace Neiria.Api.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class ClothController : ControllerBase
+  public class ClothesController : ControllerBase
   {
     private readonly IClothRepo _repo;
 
-    public ClothController(ClothRepo repo)
+    public ClothesController(IClothRepo repo)
     {
       this._repo = repo;
     }
@@ -67,7 +67,7 @@ namespace Neiria.Api.Controllers
       }
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [ProducesResponseType(typeof(Cloth), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> UpdateCloth(Guid id, [FromBody] Cloth cloth)
     {
