@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Neiria.Application\Neiria.Application.csproj" />
+    <ProjectReference Include="..\..\Neiria.Domain\Neiria.Domain.csproj" />
+    <ProjectReference Include="..\..\Neiria.Infrastructure\Neiria.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+</Project>
