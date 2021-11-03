@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Neiria.Application.Configuration;
 
 namespace Neiria.Api
 {
@@ -26,6 +27,9 @@ namespace Neiria.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+      
+     
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +45,15 @@ namespace Neiria.Api
             app.UseRouting();
 
             app.UseAuthorization();
-
+      
+           app.UseSwagger(c => c.RouteTemplate = "api/swagger/{documentName}/swagger.json");
+      
+            app.UseSwaggerUI(c =>
+            {
+              c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Neiria Api V1");
+              c.RoutePrefix = "api/swagger";
+            });
+      
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

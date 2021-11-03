@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Neiria.Application\Neiria.Application.csproj" />
     <ProjectReference Include="..\..\Neiria.Domain\Neiria.Domain.csproj" />
     <ProjectReference Include="..\..\Neiria.Infrastructure\Neiria.Infrastructure.csproj" />

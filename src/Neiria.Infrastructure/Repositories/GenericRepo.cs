@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Neiria.Infrastructure.Repositories
 {
-  public class GenericRepo : IGenericRepo<Cloth>
+  public class GenericRepo<T> : IGenericRepo<T> where T : BaseEntity
   {
     private readonly ClothContext _context;
 
@@ -16,27 +16,28 @@ namespace Neiria.Infrastructure.Repositories
     {
       _context = context;
     }
-    public Task<Cloth> Delete(Guid id)
+
+    public Task<T> Delete(Guid id)
     {
       throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Cloth>> GetAll()
+    public Task<IEnumerable<T>> GetAll()
     {
       throw new NotImplementedException();
     }
 
-    public Task<Cloth> GetId(Guid id)
+    public Task<T> GetId(Guid id)
     {
       throw new NotImplementedException();
     }
 
-    public Task<Cloth> Insert(Cloth ent)
+    public Task<T> Insert(T ent)
     {
       throw new NotImplementedException();
     }
 
-    public Task<Cloth> Update(Cloth ent)
+    public Task<T> Update(T ent)
     {
       throw new NotImplementedException();
     }

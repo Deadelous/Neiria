@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Neiria.Application\Neiria.Application.csproj" />
     <ProjectReference Include="..\Neiria.Domain\Neiria.Domain.csproj" />
   </ItemGroup>
 
