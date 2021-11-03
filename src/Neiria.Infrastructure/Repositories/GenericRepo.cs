@@ -1,4 +1,5 @@
-﻿using Neiria.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Neiria.Domain.Interfaces;
 using Neiria.Domain.Models;
 using Neiria.Infrastructure.Context;
 using System;
@@ -11,35 +12,53 @@ namespace Neiria.Infrastructure.Repositories
   public class GenericRepo<T> : IGenericRepo<T> where T : BaseEntity
   {
     private readonly ClothContext _context;
+    private DbSet<T> entities;
 
     public GenericRepo(ClothContext context)
     {
       _context = context;
+      entities = context.Set<T>();
     }
 
-    public Task<T> Delete(Guid id)
+    public async Task Delete(Guid id)
     {
-      throw new NotImplementedException();
+      T ent = await entities.SingleAsync(e => e.Guid == id);
+
+      _context.Remove(ent);
     }
 
-    public Task<IEnumerable<T>> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-      throw new NotImplementedException();
+      return await entities.ToListAsync();
     }
 
-    public Task<T> GetId(Guid id)
+    public async Task<T> GetId(Guid id)
     {
-      throw new NotImplementedException();
+      return await entities.SingleOrDefaultAsync(e => e.Guid == id);   
     }
 
-    public Task<T> Insert(T ent)
+    public async Task<T> Insert(T ent)
     {
-      throw new NotImplementedException();
+    
+      await entities.AddAsync(ent);
+      _context.Entry(ent).State = EntityState.Added;
+
+      return ent;
     }
 
-    public Task<T> Update(T ent)
+    public Task<T> Update(Guid id, T ent)
     {
-      throw new NotImplementedException();
+      if (ent == null)
+      {
+        throw new ArgumentNullException("entity is null");
+      }
+
+      var result = _context.Set<T>().FirstOrDefaultAsync(ent => ent.Guid == id);
+
+      _context.Entry(ent).State = EntityState.Modified;
+
+      return Task.FromResult(ent);
+      
     }
   }
 }

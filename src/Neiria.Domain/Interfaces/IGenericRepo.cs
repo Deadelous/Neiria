@@ -14,9 +14,9 @@ namespace Neiria.Domain.Interfaces
 
       Task<T> Insert(T ent);
 
-      Task<T> Update(T ent);
+      Task<T> Update(Guid id, T ent);
 
-      Task<T> Delete(Guid id);
+      Task Delete(Guid id);
 
   }
 }
