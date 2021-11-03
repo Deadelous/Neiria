@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neiria.Application\Neiria.Application.csproj" />
     <ProjectReference Include="..\Neiria.Domain\Neiria.Domain.csproj" />
   </ItemGroup>
 
