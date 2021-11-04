@@ -16,65 +16,66 @@ using Neiria.Infrastructure.Context;
 
 namespace Neiria.Api
 {
-    public class Startup
+  public class Startup
+  {
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-
-            var connectionString = Configuration.GetConnectionString("connectionsqlite");
-
-           services.AddDbContext<ClothContext>(options => options.UseSqlite(connectionString));
-
-           services
-              .AddDatabase()
-              .AddRepositories();
-        
-            services.AddSwaggerGen();
-
-            services.AddCors();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-           app.UseCors(o => {
-               o.AllowAnyOrigin();
-               o.AllowAnyHeader();
-               o.AllowAnyMethod();
-           });
-      
-           if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-      
-           app.UseSwagger(c => c.RouteTemplate = "api/swagger/{documentName}/swagger.json");
-      
-            app.UseSwaggerUI(c =>
-            {
-              c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Neiria Api V1");
-              c.RoutePrefix = "api/swagger";
-            });
-      
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+      Configuration = configuration;
     }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.AddControllers();
+
+      var connectionString = Configuration.GetConnectionString("connectionsqlite");
+
+      services.AddDbContext<ClothContext>(options => options.UseSqlite(connectionString));
+
+      services
+         .AddDatabase()
+         .AddRepositories();
+
+      services.AddSwaggerGen();
+
+      services.AddCors();
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+      app.UseCors(o =>
+      {
+        o.AllowAnyOrigin();
+        o.AllowAnyHeader();
+        o.AllowAnyMethod();
+      });
+
+      if (env.IsDevelopment())
+      {
+        app.UseDeveloperExceptionPage();
+      }
+
+      app.UseHttpsRedirection();
+
+      app.UseRouting();
+
+      app.UseAuthorization();
+
+      app.UseSwagger(c => c.RouteTemplate = "api/swagger/{documentName}/swagger.json");
+
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Neiria Api V1");
+        c.RoutePrefix = "api/swagger";
+      });
+
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+      });
+    }
+  }
 }

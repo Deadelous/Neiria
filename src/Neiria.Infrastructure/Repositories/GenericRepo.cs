@@ -36,11 +36,13 @@ namespace Neiria.Infrastructure.Repositories
 
     public async Task<T> GetId(Guid id)
     {
-      return await entities.SingleOrDefaultAsync(e => e.Guid == id);   
+      return await entities.SingleOrDefaultAsync(e => e.Guid == id);
     }
 
     public async Task<T> Insert(T ent)
     {
+      if (ent == null) throw new ArgumentNullException("There is no value");
+
       await entities.AddAsync(ent);
       _context.SaveChanges();
       _context.Entry(ent).State = EntityState.Added;
@@ -60,7 +62,7 @@ namespace Neiria.Infrastructure.Repositories
       _context.SaveChanges();
 
       return Task.FromResult(ent);
-      
+
     }
   }
 }

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Neiria.Domain.Interfaces
 {
-    public interface IGenericRepo<T> where T : BaseEntity
-    {
-      Task<IEnumerable<T>> GetAll();
+  public interface IGenericRepo<T> where T : BaseEntity
+  {
+    Task<IEnumerable<T>> GetAll();
 
-      Task<T> GetId(Guid id);
+    Task<T> GetId(Guid id);
 
-      Task<T> Insert(T ent);
+    Task<T> Insert(T ent);
 
-      Task<T> Update(Guid id, T ent);
+    Task<T> Update(Guid id, T ent);
 
-      Task Delete(Guid id);
+    Task Delete(Guid id);
 
   }
 }
