@@ -9,7 +9,6 @@ namespace Neiria.Infrastructure.Repositories
 {
   public class ClothRepo : GenericRepo<Cloth>, IClothRepo
   {
-  
     public ClothRepo(ClothContext clothContext) : base(clothContext) { }
   }
 }

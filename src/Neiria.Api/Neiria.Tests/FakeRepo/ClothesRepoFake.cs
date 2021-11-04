@@ -40,8 +40,8 @@ namespace Neiria.Tests.FakeRepo
       };
     }
     public Task Delete(Guid id)
-    { 
-      var existingItem =_fakeClothes.First(e => e.Guid == id);
+    {
+      var existingItem = _fakeClothes.First(e => e.Guid == id);
       _fakeClothes.Remove(existingItem);
 
       return Task.CompletedTask;
@@ -69,7 +69,7 @@ namespace Neiria.Tests.FakeRepo
 
       return Task.FromResult(item);
 
-      
+
     }
   }
 }

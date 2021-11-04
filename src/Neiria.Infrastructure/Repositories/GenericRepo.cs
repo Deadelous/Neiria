@@ -36,7 +36,7 @@ namespace Neiria.Infrastructure.Repositories
 
     public async Task<T> GetId(Guid id)
     {
-      return await entities.SingleOrDefaultAsync(e => e.Guid == id);   
+      return await entities.SingleOrDefaultAsync(e => e.Guid == id);
     }
 
     public async Task<T> Insert(T ent)
@@ -60,7 +60,7 @@ namespace Neiria.Infrastructure.Repositories
       _context.SaveChanges();
 
       return Task.FromResult(ent);
-      
+
     }
   }
 }

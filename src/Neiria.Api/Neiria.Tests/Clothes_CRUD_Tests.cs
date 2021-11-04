@@ -16,8 +16,7 @@ namespace Neiria.Tests
   {
     private readonly ClothesController _controller;
     private readonly ClothesRepoFake _sut;
-    
-     
+
     public Clothes_CRUD_Tests()
     {
       _sut = new ClothesRepoFake();
@@ -36,14 +35,13 @@ namespace Neiria.Tests
       // Assert
 
       Assert.Equal(3, total.Count);
-    
+
     }
 
     [Fact]
     public async void Test_Read_GetId_Return_OkResult()
     {
       // Act
-
       var clothitem = new Cloth { Guid = new Guid("6299982f-4069-44f6-b88a-840da3ec38ec"), Name = "Vest", BrandName = "C&A", Price = 15 };
 
       await _sut.Insert(clothitem);
@@ -54,7 +52,7 @@ namespace Neiria.Tests
 
       // Assert
       Assert.NotNull(result);
-      Assert.IsType<Cloth>(result);   
+      Assert.IsType<Cloth>(result);
     }
 
     [Fact]
@@ -63,21 +61,21 @@ namespace Neiria.Tests
       // Act
       var clothitem = new Cloth { Name = "Vest", BrandName = "C&A", Price = 15 };
 
-      var result = await _controller.CreateNewCloth(clothitem); 
+      var result = await _controller.CreateNewCloth(clothitem);
 
       // Assert
       Assert.NotNull(result);
       Assert.IsType<ObjectResult>(result);
-      
+
     }
 
     [Fact]
-    public  async void Test_Delete_Return_NoContentResult()
+    public async void Test_Delete_Return_NoContentResult()
     {
       // Act
       var item = new Guid("6299982f-4069-44f6-b88a-840da3ec38ec");
 
-     var okRespone = await _controller.DeleteCloth(item);
+      var okRespone = await _controller.DeleteCloth(item);
 
       // Assert
 

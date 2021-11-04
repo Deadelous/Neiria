@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Neiria.Infrastructure.Context
 {
-  public class ClothContext : DbContext 
+  public class ClothContext : DbContext
   {
     public ClothContext(DbContextOptions<ClothContext> options)
         : base(options)
