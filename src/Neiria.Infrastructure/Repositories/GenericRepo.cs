@@ -41,6 +41,8 @@ namespace Neiria.Infrastructure.Repositories
 
     public async Task<T> Insert(T ent)
     {
+      if (ent == null) throw new ArgumentNullException("There is no value");
+
       await entities.AddAsync(ent);
       _context.SaveChanges();
       _context.Entry(ent).State = EntityState.Added;
