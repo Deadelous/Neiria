@@ -15,7 +15,7 @@ namespace Neiria.Application.Configuration
 
     public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-      services.AddScoped<Func<ClothContext>>((provider) => () => provider.GetService<ClothContext>());
+      services.AddTransient<Func<ClothContext>>((provider) => () => provider.GetService<ClothContext>());
 
       return services;
     }
@@ -24,8 +24,9 @@ namespace Neiria.Application.Configuration
     {
 
       return services
-        .AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>))
-        .AddScoped<IClothRepo, ClothRepo>();
+        .AddTransient(typeof(IGenericRepo<>), typeof(GenericRepo<>))
+        .AddTransient<IClothRepo, ClothRepo>()
+        .AddTransient<ICatergoryRepo, CatergoryRepo>();
     }
   }
 }
