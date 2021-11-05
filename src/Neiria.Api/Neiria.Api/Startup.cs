@@ -46,11 +46,11 @@ namespace Neiria.Api
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      app.UseCors(o =>
+      app.UseCors(options =>
       {
-        o.AllowAnyOrigin();
-        o.AllowAnyHeader();
-        o.AllowAnyMethod();
+        options.AllowAnyOrigin();
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
       });
 
       if (env.IsDevelopment())
@@ -64,12 +64,12 @@ namespace Neiria.Api
 
       app.UseAuthorization();
 
-      app.UseSwagger(c => c.RouteTemplate = "api/swagger/{documentName}/swagger.json");
+      app.UseSwagger(route => route.RouteTemplate = "api/swagger/{documentName}/swagger.json");
 
-      app.UseSwaggerUI(c =>
+      app.UseSwaggerUI(ui =>
       {
-        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Neiria Api V1");
-        c.RoutePrefix = "api/swagger";
+        ui.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Neiria Api V1");
+        ui.RoutePrefix = "api/swagger";
       });
 
       app.UseEndpoints(endpoints =>

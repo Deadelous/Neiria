@@ -1,0 +1,47 @@
+﻿@page "/callclothapi"
+@using System.Text.Json
+@using Neiria.Domain.Models
+@using Neiria.BlazorApp.Data.Services
+@inject IClothService  _clothService
+
+
+<h3>Call the Cloth Api to the Blazor Razor Component</h3>
+@if (clothesData == null)
+{
+    <p>Unable to get data from API. Please try again later.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cloth Name</th>
+                <th>Cloth BrandName</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cloth in clothesData)
+            {
+                <tr>
+                    <td>@cloth.Name</td>
+                    <td>@cloth.BrandName.</td>
+                    <td>@cloth.Price</td>
+                    <td>@cloth.Description</td>
+                </tr>
+            }
+            </tbody>
+      </table>
+}
+
+
+@code {
+  private IEnumerable<Cloth> clothesData = Array.Empty<Cloth>();
+
+  protected override async Task OnInitializedAsync()
+  {
+      await base.OnInitializedAsync();
+      clothesData = await _clothService.GetAllClothes();
+  }
+}

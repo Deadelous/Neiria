@@ -4,42 +4,44 @@ using Neiria.Domain.Models;
 using Neiria.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Neiria.Infrastructure.Repositories
 {
-  public class GenericRepo<T> : IGenericRepo<T> where T : BaseEntity
+  public class GenericRepo<Entity> : IGenericRepo<Entity> where Entity : BaseEntity
   {
     private readonly ClothContext _context;
-    private DbSet<T> entities;
+    private DbSet<Entity> entities;
 
     public GenericRepo(ClothContext context)
     {
       _context = context;
-      entities = context.Set<T>();
+      entities = context.Set<Entity>();
     }
 
     public async Task Delete(Guid id)
     {
-      T ent = await entities.SingleAsync(e => e.Guid == id);
+      Entity ent = await entities.SingleAsync(e => e.Guid == id);
 
       _context.Remove(ent);
 
       _context.SaveChanges();
     }
 
-    public async Task<IEnumerable<T>> GetAll()
+    public async Task<IEnumerable<Entity>> GetAll()
     {
       return await entities.ToListAsync();
     }
 
-    public async Task<T> GetId(Guid id)
+
+    public async Task<Entity> GetId(Guid id)
     {
       return await entities.SingleOrDefaultAsync(e => e.Guid == id);
     }
 
-    public async Task<T> Insert(T ent)
+    public async Task<Entity> Insert(Entity ent)
     {
       if (ent == null) throw new ArgumentNullException("There is no value");
 
@@ -50,14 +52,14 @@ namespace Neiria.Infrastructure.Repositories
       return ent;
     }
 
-    public Task<T> Update(Guid id, T ent)
+    public Task<Entity> Update(Guid id, Entity ent)
     {
       if (ent == null)
       {
         throw new ArgumentNullException("entity is null");
       }
 
-      _context.Set<T>().Update(ent);
+      _context.Set<Entity>().Update(ent);
 
       _context.SaveChanges();
 
