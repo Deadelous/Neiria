@@ -22,7 +22,6 @@ namespace Neiria.Application.Configuration
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-
       return services
         .AddTransient(typeof(IGenericRepo<>), typeof(GenericRepo<>))
         .AddTransient<IClothRepo, ClothRepo>()
