@@ -34,7 +34,36 @@ namespace Neiria.Api.Controllers
       catch (Exception ex) {
         return StatusCode(500, ex.Message);
       }
+    }
 
+    [HttpGet("OrderbyName")]
+    [ProducesResponseType(typeof(IEnumerable<Cloth>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<Cloth>>> GetClothesSortyByName()
+    {
+      try
+      {
+        var items = await _repo.GetAllOrderByName();
+        return Ok(items);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, ex.Message);
+      }
+    }
+
+    [HttpGet("OrderbyPrice")]
+    [ProducesResponseType(typeof(IEnumerable<Cloth>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<Cloth>>> GetClothesSortyByPrice()
+    {
+      try
+      {
+        var items = await _repo.GetAllOrderByPrice();
+        return Ok(items);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, ex.Message);
+      }
     }
 
     [HttpGet("{id}")]
