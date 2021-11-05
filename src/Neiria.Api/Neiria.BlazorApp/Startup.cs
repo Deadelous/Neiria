@@ -37,8 +37,11 @@ namespace Neiria.BlazorApp
 
       services.AddRazorPages();
       services.AddServerSideBlazor();
-      services.AddSingleton<WeatherForecastService>();
       services.AddHttpClient<IClothService, ClothService>(client =>
+      {
+        client.BaseAddress = new Uri("https://localhost:44349/");
+      });
+      services.AddHttpClient<ICatergoryService, CatergoryService>(client =>
       {
         client.BaseAddress = new Uri("https://localhost:44349/");
       });
