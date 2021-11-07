@@ -25,7 +25,8 @@ namespace Neiria.Application.Configuration
       return services
         .AddTransient(typeof(IGenericRepo<>), typeof(GenericRepo<>))
         .AddTransient<IClothRepo, ClothRepo>()
-        .AddTransient<ICatergoryRepo, CatergoryRepo>();
+        .AddTransient<ICatergoryRepo, CatergoryRepo>()
+        .AddTransient<IBasketItemRepo, BasketItemRepo>();
     }
   }
 }

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Neiria.Api.Controllers;
 using Neiria.Domain.Models;
+using Neiria.Domain.ViewModels;
 using Neiria.Tests.FakeRepo;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,13 @@ namespace Neiria.Tests
   {
     private readonly ClothesController _controller;
     private readonly ClothesRepoFake _sut;
+    private readonly IMapper _mapper;
 
     public Clothes_CRUD_Tests()
     {
       _sut = new ClothesRepoFake();
-      _controller = new ClothesController(_sut);
+    
+      _controller = new ClothesController(_sut, _mapper);
 
     }
 
@@ -57,7 +61,7 @@ namespace Neiria.Tests
     public async void Test_Create_Insert_ReturnsValid()
     {
       // Act
-      Cloth clothitem = new Cloth { Name = "Vest", BrandName = "C&A", Price = 15 };
+      ClothViewModel clothitem = new ClothViewModel { Name = "Vest", BrandName = "C&A", Price = 15 };
 
       var result = await _controller.CreateNewCloth(clothitem);
 
@@ -93,7 +97,7 @@ namespace Neiria.Tests
     [Fact]
     public async void Test_Create_Insert_Null()
     {
-      Cloth result = null;
+     ClothViewModel result = null;
 
       var nocontent = await _controller.CreateNewCloth(result);
 
