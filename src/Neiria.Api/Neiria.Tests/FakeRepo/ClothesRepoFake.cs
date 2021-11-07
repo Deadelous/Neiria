@@ -52,6 +52,16 @@ namespace Neiria.Tests.FakeRepo
       return Task.FromResult(_fakeClothes.AsEnumerable());
     }
 
+    public Task<IEnumerable<Cloth>> GetAllOrderByName()
+    {
+      return Task.FromResult(_fakeClothes.AsEnumerable());
+    }
+
+    public Task<IEnumerable<Cloth>> GetAllOrderByPrice()
+    {
+      return Task.FromResult(_fakeClothes.AsEnumerable());
+    }
+
     public Task<Cloth> GetId(Guid id)
     {
       return Task.FromResult(_fakeClothes.FirstOrDefault(e => e.Guid == id));

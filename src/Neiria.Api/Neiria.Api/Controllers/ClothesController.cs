@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Neiria.Domain.Interfaces;
 using Neiria.Domain.Models;
+using Neiria.Domain.ViewModels;
 using Neiria.Infrastructure.Repositories;
 
 namespace Neiria.Api.Controllers
@@ -16,20 +18,23 @@ namespace Neiria.Api.Controllers
   public class ClothesController : ControllerBase
   {
     private readonly IClothRepo _repo;
+    private readonly IMapper _mapper;
 
-    public ClothesController(IClothRepo repo)
+    public ClothesController(IClothRepo repo, IMapper mapper)
     {
-      this._repo = repo;
+      _repo = repo;
+      _mapper = mapper;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<Cloth>),(int) HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<Cloth>>> GetClothes()
+    [ProducesResponseType(typeof(IEnumerable<ClothViewModel>),(int) HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<ClothViewModel>>> GetClothes()
     {
       try 
       {
         var items = await _repo.GetAll();
-        return Ok(items);
+        var mapItems = _mapper.Map<IEnumerable<ClothViewModel>>(items);
+        return Ok(mapItems);
       }
       catch (Exception ex) {
         return StatusCode(500, ex.Message);
@@ -37,13 +42,14 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpGet("OrderbyName")]
-    [ProducesResponseType(typeof(IEnumerable<Cloth>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<Cloth>>> GetClothesSortyByName()
+    [ProducesResponseType(typeof(IEnumerable<ClothViewModel>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<ClothViewModel>>> GetClothesSortyByName()
     {
       try
       {
         var items = await _repo.GetAllOrderByName();
-        return Ok(items);
+        var mapItems = _mapper.Map<IEnumerable<ClothViewModel>>(items);
+        return Ok(mapItems);
       }
       catch (Exception ex)
       {
@@ -52,13 +58,14 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpGet("OrderbyPrice")]
-    [ProducesResponseType(typeof(IEnumerable<Cloth>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<Cloth>>> GetClothesSortyByPrice()
+    [ProducesResponseType(typeof(IEnumerable<ClothViewModel>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<ClothViewModel>>> GetClothesSortyByPrice()
     {
       try
       {
         var items = await _repo.GetAllOrderByPrice();
-        return Ok(items);
+        var mapItems = _mapper.Map<IEnumerable<ClothViewModel>>(items);
+        return Ok(mapItems);
       }
       catch (Exception ex)
       {
@@ -67,13 +74,14 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(Cloth), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<Cloth>> GetSpecificCloth(Guid id)
+    [ProducesResponseType(typeof(ClothViewModel), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<ClothViewModel>> GetSpecificCloth(Guid id)
     {
       try
       {
         var result = await _repo.GetId(id);
-        return Ok(result);
+        var mapResult = _mapper.Map<ClothViewModel>(result);
+        return Ok(mapResult);
       }
       catch (Exception ex)
       {
@@ -82,13 +90,14 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Cloth), (int)HttpStatusCode.Created)]
-    public async Task<IActionResult> CreateNewCloth([FromBody] Cloth cloth) 
+    [ProducesResponseType(typeof(ClothViewModel), (int)HttpStatusCode.Created)]
+    public async Task<IActionResult> CreateNewCloth([FromBody] ClothViewModel cloth) 
     {
       try
       {
-        var result = await _repo.Insert(cloth);
-        return StatusCode((int)HttpStatusCode.Created, result);
+        var result = await _repo.Insert(_mapper.Map<Cloth>(cloth));
+        var mapResult = _mapper.Map<ClothViewModel>(result);
+        return StatusCode((int)HttpStatusCode.Created, mapResult);
       }
       catch (Exception ex)
       {
@@ -97,13 +106,14 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(Cloth), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> UpdateCloth(Guid id, [FromBody] Cloth cloth)
+    [ProducesResponseType(typeof(ClothViewModel), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> UpdateCloth(Guid id, [FromBody] ClothViewModel cloth)
     {
       try
       {
-        var result = await _repo.Update(id ,cloth);
-        return StatusCode((int)HttpStatusCode.Created, result);
+        var result = await _repo.Update(id , _mapper.Map<Cloth>(cloth));
+        var mapResult = _mapper.Map<ClothViewModel>(result);
+        return StatusCode((int)HttpStatusCode.Created, mapResult);
       }
       catch (Exception ex)
       {
@@ -112,7 +122,7 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(Cloth), (int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public async Task<ActionResult> DeleteCloth(Guid id)
     {
       try
