@@ -1,0 +1,43 @@
+﻿@page "/callcatergoryapi"
+@using System.Text.Json
+@using Neiria.Domain.Models
+@using Neiria.BlazorApp.Data.Services
+@inject ICatergoryService  _catergoryService
+
+
+<h3>Call the Cloth Api to the Blazor Razor Component</h3>
+@if (catergoryData == null)
+{
+    <p>Unable to get data from API. Please try again later.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Catergory Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var catergory in catergoryData)
+            {
+                <tr>
+                    <td>@catergory.Name</td>
+                    <td>@catergory.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private IEnumerable<Catergory> catergoryData = Array.Empty<Catergory>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        catergoryData = await _catergoryService.GetAllCatergories();
+    }
+}
