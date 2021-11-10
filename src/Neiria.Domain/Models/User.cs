@@ -7,16 +7,23 @@ using System.Text;
 namespace Neiria.Domain.Models
 {
 
-  [Table("Catergories")]
-  public class Catergory : BaseEntity
+  [Table("Users")]
+  public class User : BaseEntity
   {
     [Required]
     [MaxLength(50)]
     public string Name { get; set; }
 
     [Required]
-    [MaxLength(500)]
-    public string Description { get; set; }
+    [MaxLength(50)]
+    public string LastName { get; set; }
 
+    [Required]
+    public string Email { get; set; }
+
+    [Required]
+    public int Age { get; set; }
+
+    public string PhoneNumber { get; set; }
   }
 }
