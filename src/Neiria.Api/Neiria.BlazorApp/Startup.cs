@@ -39,11 +39,11 @@ namespace Neiria.BlazorApp
       services.AddServerSideBlazor();
       services.AddHttpClient<IClothService, ClothService>(client =>
       {
-        client.BaseAddress = new Uri("https://localhost:44349/");
+        client.BaseAddress = new Uri("https://localhost:7004/");
       });
       services.AddHttpClient<ICatergoryService, CatergoryService>(client =>
       {
-        client.BaseAddress = new Uri("https://localhost:44349/");
+        client.BaseAddress = new Uri("https://localhost:7004/");
       });
     }
 

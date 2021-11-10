@@ -20,6 +20,7 @@ namespace Neiria.Domain.Models
     [Required]
     public double Price { get; set; }
 
+    [MaxLength(500)]
     public string Description { get; set; }
 
   }
