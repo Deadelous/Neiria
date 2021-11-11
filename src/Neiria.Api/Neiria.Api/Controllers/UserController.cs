@@ -19,21 +19,19 @@ namespace Neiria.Api.Controllers
     private readonly IUserRepo _repo;
     private readonly IMapper _mapper;
 
-    public UserController(IUserRepo repo, IMapper mapper)
+    public UserController(IUserRepo repo)
     {
       _repo = repo;
-      _mapper = mapper;
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<UserViewModel>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<UserViewModel>>> GetClothes()
+    [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
     {
       try
       {
         var users = await _repo.GetAll();
-        var mapUsers = _mapper.Map<IEnumerable<UserViewModel>>(users);
-        return Ok(mapUsers);
+        return Ok(users);
       }
       catch (Exception ex)
       {
@@ -42,14 +40,13 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<UserViewModel>> GetSpecificCloth(Guid id)
+    [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<User>> GetSpecificUser(Guid id)
     {
       try
       {
         var result = await _repo.GetId(id);
-        var mapResult = _mapper.Map<UserViewModel>(result);
-        return Ok(mapResult);
+        return Ok(result);
       }
       catch (Exception ex)
       {
@@ -58,14 +55,13 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.Created)]
-    public async Task<IActionResult> CreateNewCloth([FromBody] UserViewModel user)
+    [ProducesResponseType(typeof(User), (int)HttpStatusCode.Created)]
+    public async Task<IActionResult> CreateNewUser([FromBody] User user)
     {
       try
       {
-        var result = await _repo.Insert(_mapper.Map<User>(user));
-        var mapResult = _mapper.Map<UserViewModel>(result);
-        return StatusCode((int)HttpStatusCode.Created, mapResult);
+        var result = await _repo.Insert(user);
+        return StatusCode((int)HttpStatusCode.Created, result);
       }
       catch (Exception ex)
       {
@@ -74,14 +70,13 @@ namespace Neiria.Api.Controllers
     }
 
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(UserViewModel), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> UpdateCloth(Guid id, [FromBody] UserViewModel user)
+    [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> UpdateUser(Guid id, [FromBody] User user)
     {
       try
       {
-        var result = await _repo.Update(id, _mapper.Map<User>(user));
-        var mapResult = _mapper.Map<UserViewModel>(result);
-        return StatusCode((int)HttpStatusCode.Created, mapResult);
+        var result = await _repo.Update(id, user);
+        return StatusCode((int)HttpStatusCode.Created, result);
       }
       catch (Exception ex)
       {
@@ -91,7 +86,7 @@ namespace Neiria.Api.Controllers
 
     [HttpDelete("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public async Task<ActionResult> DeleteCloth(Guid id)
+    public async Task<ActionResult> DeleteUser(Guid id)
     {
       try
       {
