@@ -9,5 +9,7 @@ namespace Neiria.BlazorApp.Data.Services
   public interface IClothService
   {
     Task<IEnumerable<Cloth>> GetAllClothes();
+
+    Task<Cloth> GetSpecificCloth(Guid id);
   }
 }

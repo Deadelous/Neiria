@@ -1,0 +1,44 @@
+﻿@page "/clothpage"
+@page "/clothpage/{id}"
+@using System;
+@using System.Linq;
+@using System.Threading.Tasks;
+@using Neiria.Domain.Models
+@using Neiria.BlazorApp.Data.Services
+@using Microsoft.AspNetCore.Components;
+@inject IClothService  _clothService
+
+
+@if (Cloth == null)
+{
+    <p>Unable to get data from API. Please try again later.</p>
+}
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@Cloth.Name</h1>
+            </div>
+
+            <div class="card-body text-center">
+
+                <h4>Brand Name: @Cloth.BrandName</h4>
+                <h4>Price : @Cloth.Price</h4>
+                <h4>Description : @Cloth.Description</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public Cloth Cloth { get; set; } = new Cloth();
+
+    [Parameter] public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Cloth = await _clothService.GetSpecificCloth(Guid.Parse(Id));
+    }
+}

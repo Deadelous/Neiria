@@ -29,19 +29,21 @@ else
                     <td>@cloth.BrandName.</td>
                     <td>@cloth.Price</td>
                     <td>@cloth.Description</td>
+                    <a href="@($"clothpage/{cloth.Guid}")"
+                       class="btn btn-primary m-1">View</a>
                 </tr>
             }
-            </tbody>
-      </table>
+        </tbody>
+    </table>
 }
 
 
 @code {
-  private IEnumerable<Cloth> clothesData = Array.Empty<Cloth>();
+    private IEnumerable<Cloth> clothesData = Array.Empty<Cloth>();
 
-  protected override async Task OnInitializedAsync()
-  {
-      await base.OnInitializedAsync();
-      clothesData = await _clothService.GetAllClothes();
-  }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        clothesData = await _clothService.GetAllClothes();
+    }
 }

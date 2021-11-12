@@ -21,5 +21,10 @@ namespace Neiria.BlazorApp.Data.Services
     {
       return await _httpclient.GetFromJsonAsync<Cloth[]>("api/Clothes");
     }
+
+    public async Task<Cloth> GetSpecificCloth(Guid id)
+    {
+      return await _httpclient.GetFromJsonAsync<Cloth>($"api/Clothes/{id}");
+    }
   }
 }
