@@ -27,7 +27,7 @@ namespace Neiria.Tests
       _userController = new UserController(_userRepo.Object);
     }
     [Fact]
-   
+
     public async void Test_Read_GetAllUsers_Returns_AllUsers()
     {
       // Arrange
@@ -61,11 +61,11 @@ namespace Neiria.Tests
         Age = 32
       };
 
-      mockRepo.Setup(method => method.GetId(user.Guid)).ReturnsAsync(GetTestUser());                                                                                                                                                                                                                                                                                                                                                                                                                                
+      mockRepo.Setup(method => method.GetId(user.Guid)).ReturnsAsync(GetTestUser());
 
       // Act
       var usercontroller = new UserController(mockRepo.Object);
-  
+
       var result = await usercontroller.GetSpecificUser(new Guid("fb2507a9-8175-4c0f-8fa8-7a8a02cb4780"));
       //Assert
       var actionResult = Assert.IsType<OkObjectResult>(result.Result);
@@ -80,8 +80,42 @@ namespace Neiria.Tests
     {
 
       // Arrange
-      var mockRepo = new Mock<IUserRepo>();
+      var user = new User()
+      {
+        Guid = new Guid("606a9dfa-0c74-458c-b579-2f1f32d507ae"),
+        Name = "Lilly",
+        LastName = "Evans",
+        Email = "L.Evans@gmail.com",
+        Age = 27
+      };
 
+      var mockRepo = new Mock<IUserRepo>();
+      mockRepo.Setup(method => method.Insert(It.IsAny<User>()));
+
+      var usercontroller = new UserController(mockRepo.Object);
+
+      var result = await usercontroller.CreateNewUser(user);
+
+      Assert.IsType<ObjectResult>(result);
+    }
+
+    [Fact]
+    public async Task Test_Delete_User_Returns_RemoveUser()
+    {
+      // Arrange
+      Guid testGuid = new Guid("2579eb7d-637b-4a6d-b827-d6e9d4471d7f");
+
+      var mockRepo = new Mock<IUserRepo>();
+      mockRepo.Setup(method => method.Delete(It.IsAny<Guid>()))
+             .Returns(Task.CompletedTask);
+
+      // Act
+      var usercontroller = new UserController(mockRepo.Object);
+
+      var result = await usercontroller.DeleteUser(testGuid);
+
+      // Assert
+      var redirectToActionResult = Assert.IsType<NoContentResult>(result);
     }
 
 
