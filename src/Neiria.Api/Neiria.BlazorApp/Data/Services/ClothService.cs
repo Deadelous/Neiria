@@ -13,6 +13,7 @@ namespace Neiria.BlazorApp.Data.Services
   {
     private readonly HttpClient _httpclient;
 
+    private readonly string baseurl = "https://localhost:7004/";
     public ClothService(HttpClient httpClient)
     {
       _httpclient = httpClient;
@@ -36,6 +37,17 @@ namespace Neiria.BlazorApp.Data.Services
       var apiResponse = JsonConvert.DeserializeObject<Cloth>(await response.Content.ReadAsStringAsync());
 
       return apiResponse;
+    }
+
+    public async Task DeleteCloth(Guid id)
+    {
+      using (var _httpClient = new HttpClient())
+      {
+        using (var response = await _httpClient.DeleteAsync(baseurl + $"api/Clothes/{id}"))
+        {
+          string apiResponse = await response.Content.ReadAsStringAsync();
+        }
+      }
     }
   }
 }

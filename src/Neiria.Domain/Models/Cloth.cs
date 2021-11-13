@@ -22,6 +22,5 @@ namespace Neiria.Domain.Models
 
     [MaxLength(500)]
     public string Description { get; set; }
-
   }
 }

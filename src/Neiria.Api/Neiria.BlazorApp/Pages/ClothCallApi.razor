@@ -1,4 +1,5 @@
-﻿@page "/callclothapi"
+﻿@page "/"
+@page "/callclothapi"
 @using System.Text.Json
 @using Neiria.Domain.Models
 @using Neiria.BlazorApp.Data.Services
@@ -14,11 +15,11 @@
 
 else
 {
-<div>
-    <a href="@($"createcloth")" class="btn btn-primary m-1">Add new Cloth</a>
-    <br />
-    <br />
-</div>
+    <div>
+        <a href="@($"createcloth")" class="btn btn-primary m-1">Add new Cloth</a>
+        <br />
+        <br />
+    </div>
     <div>
         <input class="border-4 w-1/3 rounded m-6 p-6 h-8
                border-blue-300" @bind-value="searchTerm"
@@ -33,17 +34,19 @@ else
                 <th>Description</th>
             </tr>
         </thead>
-        
+
         <tbody>
             @foreach (var cloth in Filter)
             {
-            <tr>
-                <td>@cloth.Name</td>
-                <td>@cloth.BrandName.</td>
-                <td>@cloth.Price</td>
-                <td>@cloth.Description</td>
-                <td><a href="@($"clothpage/{cloth.Guid}")" class="btn btn-primary m-1">View</a></td>
-            </tr>
+                <tr>
+                    <td>@cloth.Name</td>
+                    <td>@cloth.BrandName.</td>
+                    <td>@cloth.Price</td>
+                    <td>@cloth.Description</td>
+                    <td><a href="@($"clothpage/{cloth.Guid}")" class="btn btn-primary m-1">View</a></td>
+                    <td><button class="btn btn-danger" @onclick="@(() => RemoveCloth(cloth))"></button></td>
+                </tr>
+
             }
         </tbody>
     </table>
@@ -58,11 +61,20 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await CallClothesApi();
+    }
+
+    private async Task CallClothesApi()
+    {
         await base.OnInitializedAsync();
         clothesData = await _clothService.GetAllClothes();
-
     }
 
     private IEnumerable<Cloth> Filter => clothesData.Where(item => item.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
 
+    private async Task RemoveCloth(Cloth cloth)
+    {
+        await _clothService.DeleteCloth(cloth.Guid);
+        await CallClothesApi();
+    }
 }

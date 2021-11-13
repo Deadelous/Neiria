@@ -23,6 +23,12 @@
         display: flex;
     }
 
+    .image
+     {
+        width: 500px;
+        height: 350px;
+    }
+
     .left-column {
         width: 65%;
         position: relative;
@@ -51,6 +57,11 @@
         <div class="cloth-name">
             <h1 class="cart-title">@Cloth.Name</h1>
             <h2 class="card-subtitle">@Cloth.BrandName</h2>
+            <br />
+            <br />
+            <div>
+                <img class="image" src="/images/stockImage.jpg" asp-append-version="true" />
+            </div>
         </div>
     </div>
 
@@ -78,3 +89,4 @@
         Cloth = await _clothService.GetSpecificCloth(Guid.Parse(Id));
     }
 }
+@*  *@
