@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorStrap;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,11 @@ namespace Neiria.BlazorApp
       });
 
       services.AddRazorPages();
+      services.AddBootstrapCss();
       services.AddServerSideBlazor();
+   
+      services.AddHttpClient();
+
       services.AddHttpClient<IClothService, ClothService>(client =>
       {
         client.BaseAddress = new Uri("https://localhost:7004/");

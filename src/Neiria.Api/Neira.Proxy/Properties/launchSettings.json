@@ -1,7 +1,7 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:58196",
       "sslPort": 44367
@@ -17,12 +17,11 @@
     },
     "Neira.Proxy": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/swagger",
-      "applicationUrl": "https://localhost:7004;http://localhost:7005",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7004;http://localhost:7005"
     }
   }
 }

@@ -8,28 +8,64 @@
 @using Microsoft.AspNetCore.Components;
 @inject IClothService  _clothService
 
+<style>
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px;
+        display: flex;
+    }
+
+    .left-column {
+        width: 65%;
+        position: relative;
+    }
+
+    .right-column {
+        width: 35%;
+        margin-top: 60px;
+    }
+
+
+    .cloth-description {
+        border-bottom: 1px solid #E1E8EE;
+        margin-bottom: 20px;
+    }
+</style>
 
 @if (Cloth == null)
 {
     <p>Unable to get data from API. Please try again later.</p>
 }
 
-<div class="row justify-content-center m-3">
-    <div class="col-sm-8">
-        <div class="card">
-            <div class="card-header">
-                <h1>@Cloth.Name</h1>
-            </div>
 
-            <div class="card-body text-center">
-
-                <h4>Brand Name: @Cloth.BrandName</h4>
-                <h4>Price : @Cloth.Price</h4>
-                <h4>Description : @Cloth.Description</h4>
-            </div>
+<section class="container">
+    <div class="left-column">
+        <div class="cloth-name">
+            <h1 class="cart-title">@Cloth.Name</h1>
+            <h2 class="card-subtitle">@Cloth.BrandName</h2>
         </div>
     </div>
-</div>
+
+    <div class="right-column">
+        <div class="cloth-description">
+            <h2>Price : € @Cloth.Price</h2>
+            <br />
+            <br />
+            <h4>Description</h4>
+            <p> @Cloth.Description</p>
+        </div>
+    </div>
+
+</section>
+
 
 @code {
     public Cloth Cloth { get; set; } = new Cloth();

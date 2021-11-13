@@ -11,5 +11,7 @@ namespace Neiria.BlazorApp.Data.Services
     Task<IEnumerable<Cloth>> GetAllClothes();
 
     Task<Cloth> GetSpecificCloth(Guid id);
+
+    Task<Cloth> CreateNewCloth(Cloth cloth);
   }
 }

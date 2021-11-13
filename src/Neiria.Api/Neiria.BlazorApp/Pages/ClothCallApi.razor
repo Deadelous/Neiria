@@ -5,13 +5,25 @@
 @inject IClothService  _clothService
 
 
-<h3>Call the Cloth Api to the Blazor Razor Component</h3>
+<h3>Different Cloth Items in Neiria E-Commerce Shop</h3>
+
 @if (clothesData == null)
 {
     <p>Unable to get data from API. Please try again later.</p>
 }
+
 else
 {
+<div>
+    <a href="@($"createcloth")" class="btn btn-primary m-1">Add new Cloth</a>
+    <br />
+    <br />
+</div>
+    <div>
+        <input class="border-4 w-1/3 rounded m-6 p-6 h-8
+               border-blue-300" @bind-value="searchTerm"
+               @bind-value:event="oninput" placeholder="Search by Name" />
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -21,17 +33,17 @@ else
                 <th>Description</th>
             </tr>
         </thead>
+        
         <tbody>
-            @foreach (var cloth in clothesData)
+            @foreach (var cloth in Filter)
             {
-                <tr>
-                    <td>@cloth.Name</td>
-                    <td>@cloth.BrandName.</td>
-                    <td>@cloth.Price</td>
-                    <td>@cloth.Description</td>
-                    <a href="@($"clothpage/{cloth.Guid}")"
-                       class="btn btn-primary m-1">View</a>
-                </tr>
+            <tr>
+                <td>@cloth.Name</td>
+                <td>@cloth.BrandName.</td>
+                <td>@cloth.Price</td>
+                <td>@cloth.Description</td>
+                <td><a href="@($"clothpage/{cloth.Guid}")" class="btn btn-primary m-1">View</a></td>
+            </tr>
             }
         </tbody>
     </table>
@@ -39,11 +51,18 @@ else
 
 
 @code {
+
+    public string searchTerm = "";
+
     private IEnumerable<Cloth> clothesData = Array.Empty<Cloth>();
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         clothesData = await _clothService.GetAllClothes();
+
     }
+
+    private IEnumerable<Cloth> Filter => clothesData.Where(item => item.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+
 }
