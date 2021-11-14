@@ -67,9 +67,10 @@ namespace Neiria.BlazorApp
       }
 
       app.UseHttpsRedirection();
-      app.UseCors("CorsPolicy");
       app.UseStaticFiles();
 
+
+      app.UseCors("CorsPolicy");
       app.UseRouting();
 
       app.UseEndpoints(endpoints =>

@@ -11,12 +11,14 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "api/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Neira.Proxy": {
       "commandName": "Project",
+      "launchBrowser": true,
       "launchUrl": "api/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
