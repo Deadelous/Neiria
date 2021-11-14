@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neiria.Tests", "Neiria.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neiria.BlazorApp", "Neiria.BlazorApp\Neiria.BlazorApp.csproj", "{B9731DAD-B4A8-4083-9EE6-3ECBF6FDBF54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neira.Proxy", "Neira.Proxy\Neira.Proxy.csproj", "{6ACA2BB3-7275-4211-8493-55F381243C28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neira.Proxy", "Neira.Proxy\Neira.Proxy.csproj", "{6ACA2BB3-7275-4211-8493-55F381243C28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
