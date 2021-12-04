@@ -31,7 +31,7 @@ The Infrastructure layer contains the business logic and communicating with the 
 # Built With
 - C# 
 - ASP.NET Core 3.1 LTS 
-- Entity Franework Core
+- Entity Framework Core
 - SQLite 
 - Yarp - Yet another reverse proxy for creating a proxy server
 - Blazor - interactive UI using C# code in HTML
