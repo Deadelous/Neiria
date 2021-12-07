@@ -35,7 +35,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -50,7 +50,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -65,7 +65,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -76,11 +76,11 @@ namespace Neiria.Api.Controllers
       try
       {
         var result = await _repo.Update(id, user);
-        return StatusCode((int)HttpStatusCode.Created, result);
+        return Ok(result);
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -96,7 +96,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
   }

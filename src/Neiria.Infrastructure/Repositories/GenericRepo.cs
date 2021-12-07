@@ -4,8 +4,6 @@ using Neiria.Domain.Models;
 using Neiria.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Neiria.Infrastructure.Repositories

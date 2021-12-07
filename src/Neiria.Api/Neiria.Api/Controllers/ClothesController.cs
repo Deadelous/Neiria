@@ -37,7 +37,7 @@ namespace Neiria.Api.Controllers
         return Ok(mapItems);
       }
       catch (Exception ex) {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -53,7 +53,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -69,7 +69,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -79,13 +79,13 @@ namespace Neiria.Api.Controllers
     {
       try
       {
-        var result = await _repo.GetId(id);
-        var mapResult = _mapper.Map<ClothViewModel>(result);
+        Cloth result = await _repo.GetId(id);
+        ClothViewModel mapResult = _mapper.Map<ClothViewModel>(result);
         return Ok(mapResult);
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -93,15 +93,15 @@ namespace Neiria.Api.Controllers
     [ProducesResponseType(typeof(ClothViewModel), (int)HttpStatusCode.Created)]
     public async Task<IActionResult> CreateNewCloth([FromBody] ClothViewModel cloth) 
     {
-      try
+      try   
       {
-        var result = await _repo.Insert(_mapper.Map<Cloth>(cloth));
-        var mapResult = _mapper.Map<ClothViewModel>(result);
+        Cloth result = await _repo.Insert(_mapper.Map<Cloth>(cloth));
+        ClothViewModel mapResult = _mapper.Map<ClothViewModel>(result);
         return StatusCode((int)HttpStatusCode.Created, mapResult);
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -117,7 +117,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
 
@@ -133,7 +133,7 @@ namespace Neiria.Api.Controllers
       }
       catch (Exception ex)
       {
-        return StatusCode(500, ex.Message);
+        return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
       }
     }
   }

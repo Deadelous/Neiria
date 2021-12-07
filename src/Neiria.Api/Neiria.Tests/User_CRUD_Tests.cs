@@ -1,15 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Neiria.Api.Controllers;
 using Neiria.Domain.Interfaces;
 using Neiria.Domain.Models;
-using Neiria.Domain.ViewModels;
-using Neiria.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
